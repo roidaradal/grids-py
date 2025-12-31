@@ -7,7 +7,7 @@ from utils import random_numbers
 def new_2048() -> IntGrid:
     # Make blank IntGrid
     rows, cols = 4, 4 
-    grid = new_IntGrid(rows, cols)
+    grid = new_grid(rows, cols, 0)
     # Randomly place 2x 2 tiles 
     for idx in random_numbers(rows*cols, 2):
         row, col = index_to_coords(idx, cols)

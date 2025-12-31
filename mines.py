@@ -10,7 +10,7 @@ bomb = -1
 # Create new Minesweeper grid 
 def new_Mines(rows: int, cols: int, mines: int) -> IntGrid:
     # Make blank IntGrid 
-    grid = new_IntGrid(rows, cols)
+    grid = new_grid(rows, cols, 0)
     # Randomly place bombs 
     for idx in random_numbers(rows*cols, mines):
         row, col = index_to_coords(idx, cols)

@@ -7,7 +7,7 @@ GREED_CURSOR = -1
 def new_Greed() -> IntGrid:
     # Make blank IntGrid 
     rows, cols = 22, 79
-    grid = new_IntGrid(rows, cols)
+    grid = new_grid(rows, cols, 0)
     # Randomize grid digits 
     per_digit = 193 
     digits: list[int] = [GREED_CURSOR]

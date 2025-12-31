@@ -4,10 +4,11 @@ from typing import Callable
 type Grid[T] = list[list[T]]
 Coords = tuple[int,int]
 IntGrid = Grid[int]
+BoolGrid = Grid[bool]
 
 # Create new blank grid 
-def new_IntGrid(rows: int, cols: int) -> IntGrid:
-    return [[0 for _ in range(cols)] for _ in range(rows)]
+def new_grid[T](rows: int, cols: int, initial: T) -> Grid[T]:
+    return [[initial for _ in range(cols)] for _ in range(rows)]
 
 # Convert index to coords 
 def index_to_coords(idx: int, width: int) -> Coords:
