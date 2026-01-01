@@ -1,32 +1,29 @@
 import random
-from grid import * 
+from grid import IntGrid
 
-GREED_CURSOR = -1
+class Greed(IntGrid):
+    cursor = -1 
 
-# Create new Greed grid 
-def new_Greed() -> IntGrid:
-    # Make blank IntGrid 
-    rows, cols = 22, 79
-    grid = new_grid(rows, cols, 0)
-    # Randomize grid digits 
-    per_digit = 193 
-    digits: list[int] = [GREED_CURSOR]
-    for i in range(1, 10):
-        digits.extend([i] * per_digit)
-    random.shuffle(digits)
-    for idx, digit in enumerate(digits):
-        row, col = index_to_coords(idx, cols)
-        grid[row][col] = digit 
-    return grid
+    def __init__(self):
+        # Make blank IntGrid 
+        rows, cols = 22, 79
+        super().__init__(rows, cols, 0)
+        # Randomize grid digits 
+        per_digit = 193 
+        digits: list[int] = [self.cursor]
+        for i in range(1, 10):
+            digits.extend([i]* per_digit)
+        random.shuffle(digits)
+        for idx, digit in enumerate(digits):
+            row, col = self.index_to_coords(idx)
+            self.cells[row][col] = digit 
 
-# Display Greed grid 
-def display_Greed(grid: IntGrid):
-    table: dict[int, str] = {
-        0: "%2s" % ".", # empty cell
-        GREED_CURSOR: "%2s" % "@", # cursor cell
-    }
-    def to_string(cell: int) -> str:
-        if cell not in table:
-            return "%2d" % cell 
-        return table[cell]
-    display_grid(grid, to_string)
+    def to_string(self, cell: int) -> str:
+        match cell:
+            case 0:
+                return "%2s" % "."
+            case self.cursor:
+                return "%2s" % "@"
+            case _:
+                return "%2d" % cell
+
