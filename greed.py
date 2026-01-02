@@ -1,8 +1,20 @@
 import random
 from grid import IntGrid
+from utils import Color
 
 class Greed(IntGrid):
     cursor = -1 
+    cellColor = {
+        1: Color.green,
+        2: Color.cyan,
+        3: Color.yellow,
+        4: Color.magenta,
+        5: Color.blue,
+        6: Color.magenta,
+        7: Color.yellow,
+        8: Color.cyan,
+        9: Color.green,
+    }
 
     def __init__(self):
         # Make blank IntGrid 
@@ -21,9 +33,8 @@ class Greed(IntGrid):
     def to_string(self, cell: int) -> str:
         match cell:
             case 0:
-                return "%2s" % "."
+                return "%6s" % Color.white(".")
             case self.cursor:
-                return "%2s" % "@"
+                return "%6s" % Color.redOnWhite("@")
             case _:
-                return "%2d" % cell
-
+                return "%6s" % self.cellColor[cell](str(cell))

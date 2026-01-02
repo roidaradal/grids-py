@@ -7,3 +7,37 @@ def random_numbers(limit: int, count: int) -> list[int]:
         numbers.add(random.randrange(limit))
     return list(numbers)
 
+class Color:
+    reset = '\033[0m'
+
+    @classmethod 
+    def red(cls, text: str) -> str:
+        return '\033[31m%s%s' % (text, cls.reset)
+    
+    @classmethod 
+    def redOnWhite(cls, text: str) -> str: 
+        return '\033[31;47m%s%s' % (text, cls.reset)
+
+    @classmethod 
+    def green(cls, text: str) -> str:
+        return '\033[32m%s%s' % (text, cls.reset)
+
+    @classmethod 
+    def yellow(cls, text: str) -> str:
+        return '\033[33m%s%s' % (text, cls.reset)
+
+    @classmethod 
+    def blue(cls, text: str) -> str:
+        return '\033[34m%s%s' % (text, cls.reset)
+
+    @classmethod 
+    def magenta(cls, text: str) -> str:
+        return '\033[35m%s%s' % (text, cls.reset)
+
+    @classmethod 
+    def cyan(cls, text: str) -> str:
+        return '\033[36m%s%s' % (text, cls.reset)
+    
+    @classmethod 
+    def white(cls, text: str) -> str:
+        return '\033[37m%s%s' % (text, cls.reset)
