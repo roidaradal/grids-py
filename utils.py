@@ -1,4 +1,4 @@
-import random
+import random, msvcrt
 
 # Generate <count> random numbers from [0, limit)
 def random_numbers(limit: int, count: int) -> list[int]:
@@ -41,3 +41,8 @@ class Color:
     @classmethod 
     def white(cls, text: str) -> str:
         return '\033[37m%s%s' % (text, cls.reset)
+    
+class Keyboard:
+    @staticmethod
+    def get_char() -> str:
+        return msvcrt.getch().decode('utf-8')
