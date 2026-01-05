@@ -1,4 +1,4 @@
-import random
+import random, time
 from grid import Grid, Delta, Coords, IntGrid, clear_screen
 from utils import Color, Keyboard
 
@@ -28,6 +28,7 @@ class Greed(IntGrid):
         random.shuffle(digits)
 
         self.score: int = 0
+        self.steps: int = 0
         self.cursor_position: Coords = (0, 0)
         for idx, digit in enumerate(digits):
             row, col = self.index_to_coords(idx)
@@ -43,31 +44,53 @@ class Greed(IntGrid):
                 return "%6s" % Color.redOnWhite("@")
             case _:
                 return "%6s" % self.cellColor[cell](str(cell))
+            
+    def display(self):
+        clear_screen()
+        print('Score: %d, Steps: %d' % (self.score, self.steps))
+        print(self)
+
 
     def play(self):
         while True:
-            clear_screen()
-            print('Score:', self.score)
-            print(self)
+            self.display()
+
+            # Check if has moves left
+            moves = 0
+            for dy, dx in [Grid.Up, Grid.Down, Grid.Left, Grid.Right]:
+                y, x = self.cursor_position 
+                ny, nx = y+dy, x+dx 
+                if not self.inside_bounds((ny, nx)): continue 
+
+                if self.cells[ny][nx] > 0: moves += 1
+            
+            if moves == 0:
+                print('Game over! No moves available')
+                break
+
             k = Keyboard.get_char().lower()
             ok = True
+            last = ''
             match k:
                 case 'q':
                     break 
                 case 'w':
                     ok = self.move_cursor(Grid.Up) 
+                    last = 'up'
                 case 's':
                     ok = self.move_cursor(Grid.Down)
+                    last = 'down'
                 case 'a':
                     ok = self.move_cursor(Grid.Left)
+                    last = 'left'
                 case 'd':
                     ok = self.move_cursor(Grid.Right)
+                    last = 'right'
 
             if not ok:
-                print('Game over! You have fallen out of the grid')
+                print('Last move:', last)
+                print('Game over! You have fallen off the grid')
                 break
-            
-            # TODO: check if current position still has available moves
     
     def move_cursor(self, delta: Delta) -> bool:
         (y, x), (dy, dx) = self.cursor_position, delta 
@@ -81,14 +104,19 @@ class Greed(IntGrid):
         # Clear current cursor
         self.cells[y][x] = 0
 
+        delay = 10 / 1000.0
+        self.steps = steps
         for _ in range(steps):
-            y, x = y+dy, x+dx 
-            if not self.inside_bounds((y, x)):
-                return False
-            self.score += self.cells[y][x]
+            self.steps -= 1
             self.cells[y][x] = 0
+            y, x = y+dy, x+dx 
+            if not self.inside_bounds((y, x)): return False
 
-        
-        self.cursor_position = (y, x)
-        self.cells[y][x] = self.cursor
+            self.score += self.cells[y][x]
+            self.cells[y][x] = self.cursor
+            self.cursor_position = (y,x)
+
+            self.display()
+            time.sleep(delay)
+
         return True
