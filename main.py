@@ -20,7 +20,7 @@ def main():
             grid.loop(100)
         case "greed":
             grid = Greed()
-            print(grid)
+            grid.play()
         case "mines":
             grid = Mines(9, 9, 10)
             print(grid)

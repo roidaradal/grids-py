@@ -45,4 +45,7 @@ class Color:
 class Keyboard:
     @staticmethod
     def get_char() -> str:
-        return msvcrt.getch().decode('utf-8')
+        try: 
+            return msvcrt.getch().decode('utf-8')
+        except:
+            return ''

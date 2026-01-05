@@ -2,8 +2,14 @@ import os, time
 from typing import Callable, Self
 
 Coords = tuple[int,int]
+Delta = tuple[int,int]
 
 class Grid[T]:
+    Up: Delta = (-1, 0)
+    Down: Delta = (1, 0)
+    Left: Delta = (0, -1)
+    Right: Delta = (0, 1)
+    
     def __init__(self, rows: int, cols: int, initial: T):
         self.cells = [[initial for _ in range(cols)] for _ in range(rows)]
         
@@ -57,6 +63,11 @@ class Grid[T]:
             if delay_ms > 0:
                 time.sleep(delay_ms / 1000.0)
             grid = grid.next()
+        
+    # Play grid game 
+    # Overridden by child grids
+    def play(self):
+        print("Grid is not playable")
 
 IntGrid = Grid[int]
 BoolGrid = Grid[bool]
