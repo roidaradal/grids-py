@@ -9,9 +9,13 @@ class Grid[T]:
     Down: Delta = (1, 0)
     Left: Delta = (0, -1)
     Right: Delta = (0, 1)
+
+    @classmethod 
+    def new(cls, rows: int, cols: int, initial: T) -> list[list[T]]:
+        return [[initial for _ in range(cols)] for _ in range(rows)]
     
     def __init__(self, rows: int, cols: int, initial: T):
-        self.cells = [[initial for _ in range(cols)] for _ in range(rows)]
+        self.cells = self.new(rows, cols, initial)
         
     def __repr__(self) -> str:
         out = []

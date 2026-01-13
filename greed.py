@@ -50,21 +50,21 @@ class Greed(IntGrid):
         print('Score: %d, Steps: %d' % (self.score, self.steps))
         print(self)
 
+    def has_moves_left(self) -> bool:
+        for dy, dx in [Grid.Up, Grid.Down, Grid.Left, Grid.Right]:
+            y, x = self.cursor_position 
+            ny, nx = y+dy, x+dx 
+            if not self.inside_bounds((ny, nx)): continue 
+
+            if self.cells[ny][nx] > 0: return True 
+        return False
 
     def play(self):
         while True:
             self.display()
 
             # Check if has moves left
-            moves = 0
-            for dy, dx in [Grid.Up, Grid.Down, Grid.Left, Grid.Right]:
-                y, x = self.cursor_position 
-                ny, nx = y+dy, x+dx 
-                if not self.inside_bounds((ny, nx)): continue 
-
-                if self.cells[ny][nx] > 0: moves += 1
-            
-            if moves == 0:
+            if not self.has_moves_left():
                 print('Game over! No moves available')
                 break
 

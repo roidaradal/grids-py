@@ -7,6 +7,14 @@ def random_numbers(limit: int, count: int) -> list[int]:
         numbers.add(random.randrange(limit))
     return list(numbers)
 
+# Center text
+def center(text: str, width: int) -> str: 
+    extra = width - len(text)
+    if extra <= 0: return text 
+    right = extra // 2
+    left = extra - right 
+    return (' ' * left) + text + (' ' * right)
+
 class Color:
     reset = '\033[0m'
 

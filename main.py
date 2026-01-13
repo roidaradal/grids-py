@@ -3,11 +3,12 @@ from g2048 import G2048
 from greed import Greed
 from mines import Mines
 from conway import Conway
+from memory import Memory
 
 def main():
     args = sys.argv[1:]
     if len(args) == 0:
-        print('Usage: python main.py <2048|conway|greed|mines>')
+        print('Usage: python main.py <2048|conway|greed|mines|memory>')
         return 
     
     option = args[0]
@@ -23,6 +24,9 @@ def main():
             grid.play()
         case "mines":
             grid = Mines(9, 9, 10)
+            print(grid)
+        case "memory":
+            grid = Memory()
             print(grid)
         case _:
             print('Unknown option:', option)
